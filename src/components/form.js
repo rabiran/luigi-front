@@ -1,16 +1,8 @@
 import React from "react";
-import axios from "axios";
+import  { sendLuigi } from "../services/luigiService";
+import './form.css';
 import { useForm } from "react-hook-form";
 
-async function postData(url = "", data = {}) {
-  // Default options are marked with *
-  try {
-     const response = await axios.post(url, data);
-    return response.data; // parses JSON response into native JavaScript objects
-  } catch (err) {
-    console.log(err);
-  }
-}
 class MyForm extends React.Component {
   constructor(props) {
     super(props);
@@ -24,16 +16,6 @@ class MyForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  callAPI(formData) {
-    postData("http://localhost:8310/luigi", formData)
-      .then((res) => {
-        alert(JSON.stringify(res)); // JSON data parsed by `data.json()` call
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  }
-
   handleSubmit() {
     const personIDsArray = [
       {
@@ -42,7 +24,7 @@ class MyForm extends React.Component {
         personalNumber: this.state.personalNumber,
       },
     ];
-    this.callAPI({
+    sendLuigi({
       personIDsArray: personIDsArray,
       dataSource: this.state.dataSource,
     });
@@ -55,7 +37,7 @@ class MyForm extends React.Component {
   };
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} class="mainform">
         <h1>
           Hello {this.state.username} {this.state.age}
         </h1>

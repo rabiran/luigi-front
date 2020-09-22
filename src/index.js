@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import MyForm from './form'
+import MyForm from './components/form'
 import * as serviceWorker from './serviceWorker';
 
 
