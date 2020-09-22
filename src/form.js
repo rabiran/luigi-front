@@ -59,10 +59,10 @@ class MyForm extends React.Component {
         <h1>
           Hello {this.state.username} {this.state.age}
         </h1>
-        <p>Enter Domain User:</p>
-        <input type="text" name="domainUser" onChange={this.myChangeHandler} />
         <p>Enter Data Source:</p>
         <input type="text" name="dataSource" onChange={this.myChangeHandler} />
+        <p>Enter Domain User:</p>
+        <input type="text" name="domainUser" onChange={this.myChangeHandler} />
         <p>Enter Identity Number:</p>
         <input
           type="text"
