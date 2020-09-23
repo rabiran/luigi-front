@@ -1,7 +1,8 @@
 import React from "react";
 import  { sendLuigi } from "../services/luigiService";
 import './form.css';
-import { useForm } from "react-hook-form";
+import CircularIndeterminate from './loadingBar'
+// import { useForm } from "react-hook-form";
 
 class MyForm extends React.Component {
   constructor(props) {
@@ -11,12 +12,15 @@ class MyForm extends React.Component {
       identityCard: "",
       personalNumber: "",
       dataSource: "",
+      isSubmitted: false,
       apiResponse: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
+  async handleSubmit(e) {
+    e.preventDefault();
+    this.setState({isSubmitted: true});
     const personIDsArray = [
       {
         domainUser: this.state.domainUser,
@@ -24,10 +28,12 @@ class MyForm extends React.Component {
         personalNumber: this.state.personalNumber,
       },
     ];
-    sendLuigi({
+    const response = await sendLuigi({
       personIDsArray: personIDsArray,
       dataSource: this.state.dataSource,
-    });
+    })
+    this.setState({isSubmitted: false})
+    console.log(response.data)
   }
 
   myChangeHandler = (event) => {
@@ -36,8 +42,10 @@ class MyForm extends React.Component {
     this.setState({ [nam]: val });
   };
   render() {
+    let { isSubmitted } = this.state;
     return (
-      <form onSubmit={this.handleSubmit} class="mainform">
+      <div className="formContainer">
+      <form onSubmit={this.handleSubmit} className="mainform">
         <h1>
           Hello {this.state.username} {this.state.age}
         </h1>
@@ -57,8 +65,11 @@ class MyForm extends React.Component {
           name="personalNumber"
           onChange={this.myChangeHandler}
         />
+        <br/><br/>
         <input type="submit" />
       </form>
+      {isSubmitted && <CircularIndeterminate/>} 
+      </div>
     );
   }
 }
