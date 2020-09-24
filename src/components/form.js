@@ -2,6 +2,7 @@ import React from "react";
 import  { sendLuigi } from "../services/luigiService";
 import './form.css';
 import CircularIndeterminate from './loadingBar'
+import TransitionsModal from './responseModal'
 // import { useForm } from "react-hook-form";
 
 class MyForm extends React.Component {
@@ -20,7 +21,7 @@ class MyForm extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    this.setState({isSubmitted: true});
+    this.setState({isSubmitted: true, apiResponse: ''});
     const personIDsArray = [
       {
         domainUser: this.state.domainUser,
@@ -32,7 +33,7 @@ class MyForm extends React.Component {
       personIDsArray: personIDsArray,
       dataSource: this.state.dataSource,
     })
-    this.setState({isSubmitted: false})
+    this.setState({isSubmitted: false, apiResponse: JSON.stringify(response.data)})
     console.log(response.data)
   }
 
@@ -69,6 +70,7 @@ class MyForm extends React.Component {
         <input type="submit" />
       </form>
       {isSubmitted && <CircularIndeterminate/>} 
+      {this.state.apiResponse && <TransitionsModal innerText={this.state.apiResponse}/>}
       </div>
     );
   }
