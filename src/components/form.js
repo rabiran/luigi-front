@@ -1,11 +1,14 @@
 import React from "react";
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select';
+import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
+import Select from "@material-ui/core/Select";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
-import  { sendLuigi } from "../services/luigiService";
-import './form.css';
-import CircularIndeterminate from './loadingBar'
-import TransitionsModal from './responseModal'
+import { sendLuigi } from "../services/luigiService";
+import "./form.css";
+import CircularIndeterminate from "./loadingBar";
+import TransitionsModal from "./responseModal";
 
 // import { useForm } from "react-hook-form";
 
@@ -27,7 +30,7 @@ class MyForm extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    this.setState({isSubmitted: true, apiResponse: ''});
+    this.setState({ isSubmitted: true, apiResponse: "" });
     const personIDsArray = [
       {
         domainUser: this.state.formData.domainUser,
@@ -38,9 +41,12 @@ class MyForm extends React.Component {
     const response = await sendLuigi({
       personIDsArray: personIDsArray,
       dataSource: this.state.formData.dataSource,
-    })
-    this.setState({isSubmitted: false, apiResponse: JSON.stringify(response.data)})
-    console.log(response.data)
+    });
+    this.setState({
+      isSubmitted: false,
+      apiResponse: JSON.stringify(response.data),
+    });
+    console.log(response.data);
   }
 
   myChangeHandler = (event) => {
@@ -48,38 +54,62 @@ class MyForm extends React.Component {
     let val = event.target.value;
     const formData = this.state.formData;
     formData[nam] = val;
-    this.setState({ formData : formData });
+    this.setState({ formData: formData });
   };
   render() {
     let { isSubmitted } = this.state;
     return (
       <div className="formContainer">
-      <form onSubmit={this.handleSubmit} className="mainform">
-        <h1>
-          Hello {this.state.username} {this.state.age}
-        </h1>
-        <p>Enter Data Source:</p>
-        <input type="text" name="dataSource" onChange={this.myChangeHandler} />
-        <p>Enter Domain User:</p>
-        <input type="text" name="domainUser" onChange={this.myChangeHandler} />
-        <p>Enter Identity Number:</p>
-        <input
-          type="text"
-          name="identityCard"
-          onChange={this.myChangeHandler}
-        />
-        <p>Enter Personal Number:</p>
-        <input
-          type="text"
-          name="personalNumber"
-          onChange={this.myChangeHandler}
-        />
-        <br/><br/>
-        <input type="submit" />
-      </form>
-      {isSubmitted && <CircularIndeterminate/>} 
-      <br/><br/>
-      {this.state.apiResponse && <TransitionsModal innerText={this.state.apiResponse}/>}
+        <FormControl className="mainform">
+          <h1>
+            Hello {this.state.username} {this.state.age}
+          </h1>
+          <p>Select Data Source:</p>
+          {/* <InputLabel id="select-data-source">Datasource</InputLabel> */}
+          <Select
+            labelId="select-data-source"
+            id="demo-simple-select"
+            value={this.state.formData.dataSource}
+            onChange={this.myChangeHandler}
+          >
+            <MenuItem value={'es_name'}>es_name</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+          <p>Enter Domain User:</p>
+          <input
+            type="text"
+            name="domainUser"
+            onChange={this.myChangeHandler}
+          />
+          <p>Enter Identity Number:</p>
+          <input
+            type="text"
+            name="identityCard"
+            onChange={this.myChangeHandler}
+          />
+          <p>Enter Personal Number:</p>
+          <input
+            type="text"
+            name="personalNumber"
+            onChange={this.myChangeHandler}
+          />
+          <br />
+          <br />
+          <Button
+            onClick={this.handleSubmit}
+            variant="contained"
+            color="primary"
+          >
+            Submit
+          </Button>
+        </FormControl>
+        {isSubmitted && <CircularIndeterminate />}
+        <br />
+        <br />
+        {this.state.apiResponse && (
+          <TransitionsModal innerText={this.state.apiResponse} />
+        )}
       </div>
     );
   }
