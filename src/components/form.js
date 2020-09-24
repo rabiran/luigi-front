@@ -70,6 +70,7 @@ class MyForm extends React.Component {
         <input type="submit" />
       </form>
       {isSubmitted && <CircularIndeterminate/>} 
+      <br/><br/>
       {this.state.apiResponse && <TransitionsModal innerText={this.state.apiResponse}/>}
       </div>
     );
