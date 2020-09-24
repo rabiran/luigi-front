@@ -1,18 +1,24 @@
 import React from "react";
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select';
+
 import  { sendLuigi } from "../services/luigiService";
 import './form.css';
 import CircularIndeterminate from './loadingBar'
 import TransitionsModal from './responseModal'
+
 // import { useForm } from "react-hook-form";
 
 class MyForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      domainUser: "",
-      identityCard: "",
-      personalNumber: "",
-      dataSource: "",
+      formData: {
+        domainUser: "",
+        identityCard: "",
+        personalNumber: "",
+        dataSource: "",
+      },
       isSubmitted: false,
       apiResponse: "",
     };
@@ -24,14 +30,14 @@ class MyForm extends React.Component {
     this.setState({isSubmitted: true, apiResponse: ''});
     const personIDsArray = [
       {
-        domainUser: this.state.domainUser,
-        identityCard: this.state.identityCard,
-        personalNumber: this.state.personalNumber,
+        domainUser: this.state.formData.domainUser,
+        identityCard: this.state.formData.identityCard,
+        personalNumber: this.state.formData.personalNumber,
       },
     ];
     const response = await sendLuigi({
       personIDsArray: personIDsArray,
-      dataSource: this.state.dataSource,
+      dataSource: this.state.formData.dataSource,
     })
     this.setState({isSubmitted: false, apiResponse: JSON.stringify(response.data)})
     console.log(response.data)
@@ -40,7 +46,9 @@ class MyForm extends React.Component {
   myChangeHandler = (event) => {
     let nam = event.target.name;
     let val = event.target.value;
-    this.setState({ [nam]: val });
+    const formData = this.state.formData;
+    formData[nam] = val;
+    this.setState({ formData : formData });
   };
   render() {
     let { isSubmitted } = this.state;
