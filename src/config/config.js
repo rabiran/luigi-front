@@ -1,5 +1,4 @@
-module.exports = {
-    dataSources: {
+export const dataSources = {
         aka: "aka",
         es: "es_name",
         ads: "ads_name",
@@ -9,5 +8,4 @@ module.exports = {
         mdn: "mdn_name",
         mm: "mm_name",
         city: "city_name",
-    }
 }

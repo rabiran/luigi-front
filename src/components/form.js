@@ -10,6 +10,7 @@ import "./form.css";
 import CircularIndeterminate from "./loadingBar";
 import TransitionsModal from "./responseModal";
 
+import { dataSources } from "../config/config"
 // import { useForm } from "react-hook-form";
 
 class MyForm extends React.Component {
@@ -73,9 +74,9 @@ class MyForm extends React.Component {
             value={this.state.formData.dataSource}
             onChange={this.myChangeHandler}
           >
-            <MenuItem value={'es_name'}>es_name</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {Object.keys(dataSources).map(key => {
+            return <MenuItem value={dataSources[key]}>{key}</MenuItem>
+            })}
           </Select>
           <p>Enter Domain User:</p>
           <input
