@@ -67,6 +67,7 @@ class MyForm extends React.Component {
           <p>Select Data Source:</p>
           {/* <InputLabel id="select-data-source">Datasource</InputLabel> */}
           <Select
+            name="dataSource"
             labelId="select-data-source"
             id="demo-simple-select"
             value={this.state.formData.dataSource}
