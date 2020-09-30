@@ -4,6 +4,7 @@
   width: 50%;
 }
 
-.mainform > input{
+.mainform > .formInput{
   margin: 0 auto;
+  width: 30%;
 }

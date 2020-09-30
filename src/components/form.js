@@ -2,6 +2,7 @@ import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
+import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -69,6 +70,7 @@ class MyForm extends React.Component {
           {/* <InputLabel id="select-data-source">Datasource</InputLabel> */}
           <Select
             name="dataSource"
+            className="formInput"
             labelId="select-data-source"
             id="demo-simple-select"
             value={this.state.formData.dataSource}
@@ -79,23 +81,11 @@ class MyForm extends React.Component {
             })}
           </Select>
           <p>Enter Domain User:</p>
-          <input
-            type="text"
-            name="domainUser"
-            onChange={this.myChangeHandler}
-          />
+          <TextField required name="domainUser" label="Required" onChange={this.myChangeHandler} className="formInput"/>
           <p>Enter Identity Number:</p>
-          <input
-            type="text"
-            name="identityCard"
-            onChange={this.myChangeHandler}
-          />
+          <TextField required name="identityCard" label="Required" onChange={this.myChangeHandler} className="formInput"/>
           <p>Enter Personal Number:</p>
-          <input
-            type="text"
-            name="personalNumber"
-            onChange={this.myChangeHandler}
-          />
+          <TextField required name="personalNumber" label="Required" onChange={this.myChangeHandler} className="formInput"/>
           <br />
           <br />
           <Button
