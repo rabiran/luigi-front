@@ -2,17 +2,18 @@ import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+import TextField from "@material-ui/core/TextField";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+// import { useForm } from "react-hook-form";
 
 import { sendLuigi } from "../../services/luigiService";
 import "./form.css";
 import CircularIndeterminate from "./utils/loadingBar";
 import TransitionsModal from "./utils/responseModal";
 
-import { dataSources } from "../../config/config"
-// import { useForm } from "react-hook-form";
+import { dataSources } from "../../config/config";
+import { validateAll } from "./validators";
 
 class MyForm extends React.Component {
   constructor(props) {
@@ -24,6 +25,13 @@ class MyForm extends React.Component {
         personalNumber: "",
         dataSource: "",
       },
+      errors: {
+        domainUser: "",
+        identityCard: "",
+        personalNumber: "",
+        dataSource: "",
+        cantSubmit: false,
+      },
       isSubmitted: false,
       apiResponse: "",
     };
@@ -32,6 +40,13 @@ class MyForm extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
+    const errors = this.state.errors;
+    const formData = this.state.formData;
+    validateAll(formData, errors);
+    this.setState({ errors: errors });
+
+    if(this.state.errors.cantSubmit) return;
+
     this.setState({ isSubmitted: true, apiResponse: "" });
     const personIDsArray = [
       {
@@ -76,16 +91,38 @@ class MyForm extends React.Component {
             value={this.state.formData.dataSource}
             onChange={this.myChangeHandler}
           >
-            {Object.keys(dataSources).map(key => {
-            return <MenuItem value={dataSources[key]}>{key}</MenuItem>
+            {Object.keys(dataSources).map((key) => {
+              return <MenuItem value={dataSources[key]}>{key}</MenuItem>;
             })}
           </Select>
           <p>Enter Domain User:</p>
-          <TextField required name="domainUser" label="Required" onChange={this.myChangeHandler} className="formInput"/>
+          <TextField
+            required
+            name="domainUser"
+            label="Required"
+            onChange={this.myChangeHandler}
+            className="formInput"
+          />
           <p>Enter Identity Number:</p>
-          <TextField required name="identityCard" label="Required" onChange={this.myChangeHandler} className="formInput"/>
+          <TextField
+            // required
+            name="identityCard"
+            label="Required"
+            onChange={this.myChangeHandler}
+            className="formInput"
+            error = {this.state.errors.identityCard}
+            helperText={this.state.errors.identityCard}
+          />
           <p>Enter Personal Number:</p>
-          <TextField required name="personalNumber" label="Required" onChange={this.myChangeHandler} className="formInput"/>
+          <TextField
+            // required
+            name="personalNumber"
+            label="Required"
+            onChange={this.myChangeHandler}
+            className="formInput"
+            error={this.state.errors.personalNumber}
+            helperText={this.state.errors.personalNumber}
+          />
           <br />
           <br />
           <Button
