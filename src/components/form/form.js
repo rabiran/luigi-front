@@ -6,12 +6,12 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { sendLuigi } from "../services/luigiService";
+import { sendLuigi } from "../../services/luigiService";
 import "./form.css";
-import CircularIndeterminate from "./loadingBar";
-import TransitionsModal from "./responseModal";
+import CircularIndeterminate from "./utils/loadingBar";
+import TransitionsModal from "./utils/responseModal";
 
-import { dataSources } from "../config/config"
+import { dataSources } from "../../config/config"
 // import { useForm } from "react-hook-form";
 
 class MyForm extends React.Component {
