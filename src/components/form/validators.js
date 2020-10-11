@@ -35,8 +35,8 @@ function validateIdentityCard(param) {
 
 
 export function validateAll(formData, errors) {
-    errors.personalNumber = /^\d{6,9}$/.test(formData.personalNumber) ? "" : "Invalid Personal Number";
-    errors.identityCard = validateIdentityCard(formData.identityCard) ? "" : "Invalid Identity Card";
+    errors.personalNumber = /^\d{6,9}$/.test(formData.personalNumber) ? "" : "מספר אישי לא תקין";
+    errors.identityCard = validateIdentityCard(formData.identityCard) ? "" : "מספר זהות לא תקין";
     errors.cantSubmit = errors.personalNumber || errors.identityCard || errors.dataSource;
     return errors;
 }

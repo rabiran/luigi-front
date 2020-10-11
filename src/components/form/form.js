@@ -79,9 +79,9 @@ class MyForm extends React.Component {
       <div className="formContainer">
         <FormControl className="mainform">
           <h1>
-            Hello {this.state.username} {this.state.age}
+            שלום {this.state.username} {this.state.age}
           </h1>
-          <p>Select Data Source:</p>
+          <p>בחר מקור</p>
           {/* <InputLabel id="select-data-source">Datasource</InputLabel> */}
           <Select
             name="dataSource"
@@ -95,7 +95,7 @@ class MyForm extends React.Component {
               return <MenuItem value={dataSources[key]}>{key}</MenuItem>;
             })}
           </Select>
-          <p>Enter Domain User:</p>
+          <p>הזן שם משתמש</p>
           <TextField
             required
             name="domainUser"
@@ -103,7 +103,7 @@ class MyForm extends React.Component {
             onChange={this.myChangeHandler}
             className="formInput"
           />
-          <p>Enter Identity Number:</p>
+          <p>הזן מספר זהות</p>
           <TextField
             // required
             name="identityCard"
@@ -113,7 +113,7 @@ class MyForm extends React.Component {
             error = {this.state.errors.identityCard}
             helperText={this.state.errors.identityCard}
           />
-          <p>Enter Personal Number:</p>
+          <p>הזן מספר אישי</p>
           <TextField
             // required
             name="personalNumber"
@@ -130,7 +130,7 @@ class MyForm extends React.Component {
             variant="contained"
             color="primary"
           >
-            Submit
+            הוסף
           </Button>
         </FormControl>
         {isSubmitted && <CircularIndeterminate />}
