@@ -73,6 +73,7 @@ class MyForm extends React.Component {
     formData[nam] = val;
     this.setState({ formData: formData });
   };
+  
   render() {
     let { isSubmitted } = this.state;
     return (
@@ -105,7 +106,7 @@ class MyForm extends React.Component {
           />
           <p>הזן מספר זהות</p>
           <TextField
-            // required
+            required
             name="identityCard"
             label="Required"
             onChange={this.myChangeHandler}
@@ -115,7 +116,7 @@ class MyForm extends React.Component {
           />
           <p>הזן מספר אישי</p>
           <TextField
-            // required
+            required
             name="personalNumber"
             label="Required"
             onChange={this.myChangeHandler}
@@ -126,6 +127,7 @@ class MyForm extends React.Component {
           <br />
           <br />
           <Button
+            id="submitButton"
             onClick={this.handleSubmit}
             variant="contained"
             color="primary"

@@ -1,10 +1,32 @@
 body {
+  box-sizing: border-box;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./images/luigi.png");
+  background-position: 10vh 10vh; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 30vh;
+  background-attachment: fixed;
+
+}
+
+body #app .formContainer {
+  margin-left:auto;
+  margin-right:0;
+}
+
+html
+{
+    overflow: hidden;
+}
+
+html, body
+{
+    height: 100%;
 }
 
 code {
