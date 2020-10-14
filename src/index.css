@@ -10,6 +10,7 @@ body {
   background-position: 10vh 10vh; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: 30vh;
+  background-color: azure;
   background-attachment: fixed;
 
 }

@@ -45,7 +45,7 @@ class MyForm extends React.Component {
     validateAll(formData, errors);
     this.setState({ errors: errors });
 
-    if(this.state.errors.cantSubmit) return;
+    if (this.state.errors.cantSubmit) return;
 
     this.setState({ isSubmitted: true, apiResponse: "" });
     const personIDsArray = [
@@ -73,57 +73,70 @@ class MyForm extends React.Component {
     formData[nam] = val;
     this.setState({ formData: formData });
   };
-  
+
   render() {
     let { isSubmitted } = this.state;
     return (
       <div className="formContainer">
         <FormControl className="mainform">
           <h1>
-            שלום {this.state.username} {this.state.age}
+              אנא הכנס את פרטיך
           </h1>
-          <p>בחר מקור</p>
-          {/* <InputLabel id="select-data-source">Datasource</InputLabel> */}
-          <Select
-            name="dataSource"
-            className="formInput"
-            labelId="select-data-source"
-            id="demo-simple-select"
-            value={this.state.formData.dataSource}
-            onChange={this.myChangeHandler}
-          >
-            {Object.keys(dataSources).map((key) => {
-              return <MenuItem value={dataSources[key]}>{key}</MenuItem>;
-            })}
-          </Select>
-          <p>הזן שם משתמש</p>
-          <TextField
-            required
-            name="domainUser"
-            label="Required"
-            onChange={this.myChangeHandler}
-            className="formInput"
-          />
-          <p>הזן מספר זהות</p>
-          <TextField
-            required
-            name="identityCard"
-            label="Required"
-            onChange={this.myChangeHandler}
-            className="formInput"
-            error = {this.state.errors.identityCard}
-            helperText={this.state.errors.identityCard}
-          />
-          <p>הזן מספר אישי</p>
-          <TextField
-            required
-            name="personalNumber"
-            label="Required"
-            onChange={this.myChangeHandler}
-            className="formInput"
-            error={this.state.errors.personalNumber}
-            helperText={this.state.errors.personalNumber}
-          />
+          <div class="formInputs">
+            <div class="sourceInput">
+              <p>בחר מקור</p>
+              <Select
+                name="dataSource"
+                className="formInput"
+                labelId="select-data-source"
+                id="demo-simple-select"
+                value={this.state.formData.dataSource}
+                onChange={this.myChangeHandler}
+              >
+                {Object.keys(dataSources).map((key) => {
+                  return <MenuItem value={dataSources[key]}>{key}</MenuItem>;
+                })}
+              </Select>
+            </div>
+
+            <div class="duInput">
+              <p>הזן שם משתמש</p>
+              <TextField
+                required
+                name="domainUser"
+                label="Required"
+                onChange={this.myChangeHandler}
+                className="formInput"
+              />
+            </div>
+            <div class="idInput">
+              <p>הזן מספר זהות</p>
+              <TextField
+                required
+                name="identityCard"
+                label="Required"
+                onChange={this.myChangeHandler}
+                className="formInput"
+                error={this.state.errors.identityCard}
+                helperText={this.state.errors.identityCard}
+              />
+            </div>
+            <div class="pnInput">
+              <p>הזן מספר אישי</p>
+              <TextField
+                required
+                name="personalNumber"
+                label="Required"
+                onChange={this.myChangeHandler}
+                className="formInput"
+                error={this.state.errors.personalNumber}
+                helperText={this.state.errors.personalNumber}
+              />
+            </div>
+          </div>
+
+          <div class="personIDs"></div>
+
           <br />
           <br />
           <Button
