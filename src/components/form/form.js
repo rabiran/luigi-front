@@ -69,7 +69,7 @@ class MyForm extends React.Component {
     });
     this.setState({
       isSubmitted: false,
-      apiResponse: JSON.stringify(response.data),
+      apiResponse: response.data,
     });
     console.log(response.data);
   }
@@ -161,7 +161,7 @@ class MyForm extends React.Component {
         <br />
         <br />
         {this.state.apiResponse && (
-          <TransitionsModal innerText={this.state.apiResponse} />
+          <TransitionsModal response={this.state.apiResponse} />
         )}
       </div>
     );

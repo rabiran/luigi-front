@@ -1,10 +1,5 @@
 .App {
   /* text-align: right; */
-  /* background-color: #cccccc; Used if the image is unavailable */
-  /* height: 100px; You must set a specified height */
-  background-position: 0 0; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  /* background-size: cover; Resize the background image to cover the entire container */
 }
 
 .App-logo {
