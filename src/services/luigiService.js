@@ -4,5 +4,10 @@ const sendLuigi = data => {
     return http.post("/luigi", data);
   };
 
-export { sendLuigi };
+  const getDataSources = () => {
+    return http.get("/dataSources");
+  };
+
+
+export { sendLuigi, getDataSources };
 

@@ -3,16 +3,14 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 // import { useForm } from "react-hook-form";
 
-import { sendLuigi } from "../../services/luigiService";
+import { sendLuigi, getDataSources } from "../../services/luigiService";
 import "./form.css";
 import CircularIndeterminate from "./utils/loadingBar";
 import TransitionsModal from "./utils/responseModal";
 
-import { dataSources } from "../../config/config";
 import { validateAll } from "./validators";
 
 class MyForm extends React.Component {
@@ -34,8 +32,18 @@ class MyForm extends React.Component {
       },
       isSubmitted: false,
       apiResponse: "",
+      dataSources: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    getDataSources().then(res => {
+      this.setState({ dataSources: res.data })
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   async handleSubmit(e) {
@@ -76,14 +84,15 @@ class MyForm extends React.Component {
 
   render() {
     let { isSubmitted } = this.state;
+    let dataSources = this.state.dataSources;
     return (
       <div className="formContainer">
         <FormControl className="mainform">
           <h1>
               אנא הכנס את פרטיך
           </h1>
-          <div class="formInputs">
-            <div class="sourceInput">
+          <div className="formInputs">
+            <div className="sourceInput">
               <p>בחר מקור</p>
               <Select
                 name="dataSource"
@@ -94,12 +103,12 @@ class MyForm extends React.Component {
                 onChange={this.myChangeHandler}
               >
                 {Object.keys(dataSources).map((key) => {
-                  return <MenuItem value={dataSources[key]}>{key}</MenuItem>;
+                  return <MenuItem key={key} value={dataSources[key]}>{key}</MenuItem>;
                 })}
               </Select>
             </div>
 
-            <div class="duInput">
+            <div className="duInput">
               <p>הזן שם משתמש</p>
               <TextField
                 required
@@ -109,7 +118,7 @@ class MyForm extends React.Component {
                 className="formInput"
               />
             </div>
-            <div class="idInput">
+            <div className="idInput">
               <p>הזן מספר זהות</p>
               <TextField
                 required
@@ -117,11 +126,11 @@ class MyForm extends React.Component {
                 label="Required"
                 onChange={this.myChangeHandler}
                 className="formInput"
-                error={this.state.errors.identityCard}
+                error={!!this.state.errors.identityCard}
                 helperText={this.state.errors.identityCard}
               />
             </div>
-            <div class="pnInput">
+            <div className="pnInput">
               <p>הזן מספר אישי</p>
               <TextField
                 required
@@ -129,13 +138,13 @@ class MyForm extends React.Component {
                 label="Required"
                 onChange={this.myChangeHandler}
                 className="formInput"
-                error={this.state.errors.personalNumber}
+                error={!!this.state.errors.personalNumber}
                 helperText={this.state.errors.personalNumber}
               />
             </div>
           </div>
 
-          <div class="personIDs"></div>
+          <div className="personIDs"></div>
 
           <br />
           <br />
